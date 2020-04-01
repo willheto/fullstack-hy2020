@@ -1,0 +1,14 @@
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
+palvelin-->selain: HTTP GET https://fullstack-exampleapp.herokuapp.com/notes
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.js
+palvelin-->selain: main.js
+
+selain suorittaa javascript-koodia, ja pyytää palvelimelta .json tiedostoa.
+
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin-->selain: antaa .json tiedoston
+
+selain suorittaa taas javascript-koodia, koska readystatechange on nyt eri, ja tulostaa
+.json tiedoston tiedot näytölle html dokumentin määrittämään paikkaan.
