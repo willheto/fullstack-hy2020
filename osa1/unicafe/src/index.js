@@ -20,30 +20,33 @@ const Statistics = (props) => {
   if (!isNaN(endResult)) {
     return (
       <div>
-        <div>
-          good {props.allFeedback[0]}
-        </div>
-        <div>
-          neutral {props.allFeedback[1]}
-        </div>
-        <div>
-          bad {props.allFeedback[2]}
-        </div>
-        <div>
-          average {endResult}
-        </div>
-        <div>
-          positive {endP} %
-        </div>
+        <StatisticLine text="good" value={good} />
+        <StatisticLine text="neutral" value={neutral} />
+        <StatisticLine text="bad" value={bad} />
+        <StatisticLine text="average" value={endResult} />
+        <StatisticLine text="positive" value={endP} />
       </div>
     )
   } return (
     <div>
-        No feedback given
+      No feedback given
     </div>
   )
+}
 
-
+const StatisticLine = (props) => {
+  if (props.text === "positive") {
+    return (
+      <div>
+        {props.text} {props.value} %
+      </div>
+    )
+  }
+  return (
+    <div>
+      {props.text} {props.value}
+    </div>
+  )
 }
 
 const App = () => {
