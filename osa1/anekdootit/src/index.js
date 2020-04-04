@@ -10,6 +10,7 @@ const Votes = (props) => {
 }
 
 const Button = (props) => {
+  
   return (
     <div>
       <button onClick={props.handleClick}>{props.name}</button>
@@ -17,37 +18,57 @@ const Button = (props) => {
   )
 }
 
+const Best = (props) => {
+  let winner = 0;
+  let winnerIndex = 0;
+  for (let index = 0; index < props.array.length; index++) {
+    if(props.array[index] > winner){
+      winner = props.array[index]
+      winnerIndex = index
+    }
+    console.log(winnerIndex)
+  }
+
+  return (
+    <div>
+      {anecdotes[winnerIndex]}
+    </div>
+  )
+}
+
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   const pituus = props.anecdotes.length
-  let [points, setPoints] = useState({
-    0: 0,
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0
-  })
+  let [points, setPoints] = useState([
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ])
 
   const vote = () => () => {
-    const copy = {...points}
+    const copy = [...points ]
     copy[selected] += 1
     points = copy
-    console.log(copy)
-    console.log(points)
+
     setPoints(copy)
   }
 
-  
+  console.log(points)
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {props.anecdotes[selected]}
+      <Votes selected={selected} array={points} />
       <Button handleClick={() => setSelected(Math.floor(Math.random() * pituus))} name="next anecdote" />
       <Button handleClick={vote()} name="vote" />
-      <Votes selected={selected} array={points} />
+      <h1>Anecdote with most votes</h1>
+      <Best selected={selected} array={points} />
     </div>
   )
-  
+
 }
 
 const anecdotes = [
