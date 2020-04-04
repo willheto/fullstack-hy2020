@@ -19,13 +19,42 @@ const Statistics = (props) => {
 
   if (!isNaN(endResult)) {
     return (
-      <div>
-        <StatisticLine text="good" value={good} />
-        <StatisticLine text="neutral" value={neutral} />
-        <StatisticLine text="bad" value={bad} />
-        <StatisticLine text="average" value={endResult} />
-        <StatisticLine text="positive" value={endP} />
-      </div>
+
+      <table>
+        <tbody>
+          <tr>
+            
+              <StatisticLine name="good" value={good} />
+           
+          </tr>
+          <tr>
+            
+              <StatisticLine name="neutral" value={neutral} />
+           
+          </tr>
+          <tr>
+          
+              <StatisticLine name="bad" value={bad} />
+          
+          </tr>
+          <tr>
+            
+              <StatisticLine name="all" value={bad + good + neutral} />
+            
+          </tr>
+          <tr>
+            
+              <StatisticLine name="average" value={endResult} />
+            
+          </tr>
+          <tr>
+            
+              <StatisticLine name="positive" value={endP} />
+            
+          </tr>
+        </tbody>
+      </table>
+
     )
   } return (
     <div>
@@ -35,17 +64,19 @@ const Statistics = (props) => {
 }
 
 const StatisticLine = (props) => {
-  if (props.text === "positive") {
+  if (props.name === "positive") {
     return (
-      <div>
-        {props.text} {props.value} %
-      </div>
+      <>
+      <td>{props.name}</td>
+      <td>{props.value} %</td>
+      </>
     )
   }
   return (
-    <div>
-      {props.text} {props.value}
-    </div>
+    <>
+    <td>{props.name}</td>
+    <td>{props.value}</td>
+    </>
   )
 }
 
