@@ -39,21 +39,7 @@ const Statistics = (props) => {
     )
   } return (
     <div>
-        <div>
-          good {props.allFeedback[0]}
-        </div>
-        <div>
-          neutral {props.allFeedback[1]}
-        </div>
-        <div>
-          bad {props.allFeedback[2]}
-        </div>
-      <div>
-        average 0
-      </div>
-      <div>
-        positive 0 %
-      </div>
+        No feedback given
     </div>
   )
 
