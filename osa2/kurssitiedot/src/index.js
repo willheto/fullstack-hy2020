@@ -37,13 +37,13 @@ const Part = (props) => {
 
 const Total = (props) => {
 
-  let total = 0
-  for (let index = 0; index < props.part.length; index++) {
-    total += props.part[index].exercises 
-  }
+  const sum = props.part.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.exercises
+  }, 0)
+
   return (
     <>
-      <b>total of {total} exercises</b>
+      <b>total of {sum} exercises</b>
     </>
   )
 }
