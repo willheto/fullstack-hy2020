@@ -15,12 +15,20 @@ const App = () => {
 
   const handleAdd = (event) => {
     event.preventDefault()
-    console.log(newName)
     const newPerson = { name: newName }
+
+    for (let index = 0; index < persons.length; index++) {
+      if(persons[index].name === newName) {
+        window.alert(`${newName} is already added to phonebook`)
+        return
+      }
+      
+    }
+
     setPersons(persons.concat(newPerson))
     console.log(persons)
 
-    setNewName(' ')
+    setNewName('')
   }
 
   return (
