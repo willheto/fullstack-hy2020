@@ -2,7 +2,7 @@ import React from 'react'
 
 const Numbers = (props) => {
     return (
-        <p>{props.person.name}</p>
+        <p>{props.person} {props.number}</p>
     )
 }
 
