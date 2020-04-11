@@ -15,8 +15,7 @@ const App = () => {
       .then(response => {
         console.log('fulfilled')
         setPersons(response.data)
-        setWhatToShow(response.data)
-        
+        setWhatToShow(response.data)       
       })
   },[])
 
