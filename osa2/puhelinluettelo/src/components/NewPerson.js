@@ -32,7 +32,6 @@ const NewPerson = (props) => {
 
         }
         props.setPersons(props.persons.concat(newPerson))
-        props.setWhatToShow(props.persons)
         console.log(props.persons)
 
         setNewName('')
