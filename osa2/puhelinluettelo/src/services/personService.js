@@ -8,4 +8,8 @@ const Create = (newObject) => {
     return axios.post('http://localhost:3001/persons', newObject)
 }
 
-export default {GetAll, Create}
+const Delete = (id) => {
+    return axios.delete(`http://localhost:3001/persons/${id}`)
+}
+
+export default {GetAll, Create, Delete}

@@ -8,7 +8,7 @@ const Filter = (props) => {
         console.log(event.target.value)
         setNewFilter(event.target.value)
         console.log(newFilter)
-        props.setShown(props.persons.filter(person => person.name.startsWith(event.target.value)))
+        props.setShown(props.persons.filter(person => person.name.toLowerCase().includes(event.target.value.toLowerCase())))
 
     }
     return (

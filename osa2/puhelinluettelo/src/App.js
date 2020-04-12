@@ -28,7 +28,7 @@ const App = () => {
       <h2>add a new</h2>
       <NewPerson persons={persons} setPersons={setPersons} setWhatToShow={setWhatToShow}/>
       <h2>Numbers</h2>
-      {whatToShow.map(person => <Numbers key={person.name} person={person.name} number={person.number} />)}
+      {whatToShow.map(person => <Numbers key={person.name} person={person.name} number={person.number} id={person.id} setWhatToShow={setWhatToShow} setPersons={setPersons} persons={persons}/>)}
     </div>
   )
 
