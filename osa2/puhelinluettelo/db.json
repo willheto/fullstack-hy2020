@@ -1,14 +1,9 @@
 {
   "persons": [
     {
-      "name": "Mary Poppendieck",
-      "number": "044 123123123",
-      "id": 4
-    },
-    {
-      "name": "sdf",
-      "number": "1",
-      "id": 5
+      "name": "Testi2",
+      "number": "§123",
+      "id": 2
     }
   ]
 }

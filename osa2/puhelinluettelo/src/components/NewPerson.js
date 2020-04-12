@@ -40,6 +40,15 @@ const NewPerson = (props) => {
                             }, 2000)
                             return
                         })
+                        .catch(error => {
+                            props.setMessage(`${newPerson.name} has already been removed from the server`)
+                            props.setPersons(props.persons.filter(person => person.name !== newPerson.name))
+                            props.setWhatToShow(props.persons.filter(person => person.name !== newPerson.name))
+                            setTimeout(() => {
+                                props.setMessage(null)
+                            }, 2000)
+                            return
+                        })
                 }
                 return
             }
