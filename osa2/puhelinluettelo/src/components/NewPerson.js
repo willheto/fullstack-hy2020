@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 const NewPerson = (props) => {
 
@@ -31,8 +32,13 @@ const NewPerson = (props) => {
             }
 
         }
-        props.setPersons(props.persons.concat(newPerson))
-        console.log(props.persons)
+
+        axios
+            .post('http://localhost:3001/persons', newPerson)
+            .then(response =>{
+                props.setPersons(props.persons.concat(response.data))
+                props.setWhatToShow(props.persons.concat(response.data))
+            })
 
         setNewName('')
         setNewNumber('')
