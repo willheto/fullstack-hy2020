@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import personService from '../services/personService'
 
 const NewPerson = (props) => {
 
@@ -33,9 +33,9 @@ const NewPerson = (props) => {
 
         }
 
-        axios
-            .post('http://localhost:3001/persons', newPerson)
-            .then(response =>{
+        personService
+            .Create(newPerson)
+            .then(response => {
                 props.setPersons(props.persons.concat(response.data))
                 props.setWhatToShow(props.persons.concat(response.data))
             })
