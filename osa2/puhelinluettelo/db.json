@@ -1,23 +1,13 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "044 123123123",
-      "id": 1
-    },
-    {
-      "name": "Dan Abramov",
-      "number": "12-43-234345",
-      "id": 3
-    },
-    {
       "name": "Mary Poppendieck",
       "number": "044 123123123",
       "id": 4
     },
     {
-      "name": "Henri W",
-      "number": "123123",
+      "name": "sdf",
+      "number": "1",
       "id": 5
     }
   ]

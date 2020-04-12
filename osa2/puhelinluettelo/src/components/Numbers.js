@@ -11,6 +11,10 @@ const Numbers = (props) => {
             .then(response => {
                 props.setPersons(props.persons.filter(person => person.id !== props.id))
                 props.setWhatToShow(props.persons.filter(person => person.id !== props.id))
+                props.setMessage(`Deleted ${props.person}`)
+                setTimeout(() => {
+                    props.setMessage(null)
+                }, 2000)
             })
         }
     }

@@ -34,6 +34,10 @@ const NewPerson = (props) => {
                         .then(response => {
                             props.setPersons(props.persons.map(person => person.id !== updateIndex ? person : response.data))
                             props.setWhatToShow(props.persons.map(person => person.id !== updateIndex ? person : response.data))
+                            props.setMessage(`Updated ${newPerson.name}'s number`)
+                            setTimeout(() => {
+                                props.setMessage(null)
+                            }, 2000)
                             return
                         })
                 }
@@ -46,6 +50,10 @@ const NewPerson = (props) => {
             .then(response => {
                 props.setPersons(props.persons.concat(response.data))
                 props.setWhatToShow(props.persons.concat(response.data))
+                props.setMessage(`Added ${newPerson.name}`)
+                setTimeout(() => {
+                    props.setMessage(null)
+                }, 2000)
             })
 
         setNewName('')
