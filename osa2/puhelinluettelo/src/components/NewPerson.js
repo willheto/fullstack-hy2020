@@ -27,10 +27,18 @@ const NewPerson = (props) => {
 
         for (let index = 0; index < props.persons.length; index++) {
             if (props.persons[index].name === newName) {
-                window.alert(`${newName} is already added to phonebook`)
+                const updateIndex = props.persons[index].id
+                if (window.confirm(`${newName} is already added to phonebook, replace old number with a new one?`)) {
+                    personService
+                        .Update(updateIndex, newPerson)
+                        .then(response => {
+                            props.setPersons(props.persons.map(person => person.id !== updateIndex ? person : response.data))
+                            props.setWhatToShow(props.persons.map(person => person.id !== updateIndex ? person : response.data))
+                            return
+                        })
+                }
                 return
             }
-
         }
 
         personService
