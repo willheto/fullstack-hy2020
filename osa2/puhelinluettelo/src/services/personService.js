@@ -1,19 +1,20 @@
 import axios from 'axios'
+const baseUrl = 'https://puhelinluettelohenriw.herokuapp.com/api/persons'
 
 const GetAll = () => {
-    return axios.get('http://localhost:3001/persons')
+    return axios.get(baseUrl)
 }
 
 const Create = (newObject) => {
-    return axios.post('http://localhost:3001/persons', newObject)
+    return axios.post(baseUrl, newObject)
 }
 
 const Delete = (id) => {
-    return axios.delete(`http://localhost:3001/persons/${id}`)
+    return axios.delete(`https://puhelinluettelohenriw.herokuapp.com/api/persons/${id}`)
 }
 
 const Update = (id, newObject) => {
-    return axios.put(`http://localhost:3001/persons/${id}`, newObject)
+    return axios.put(`https://puhelinluettelohenriw.herokuapp.com/api/persons/${id}`, newObject)
 }
 
 export default {GetAll, Create, Delete, Update}

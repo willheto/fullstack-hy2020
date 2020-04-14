@@ -57,6 +57,7 @@ const NewPerson = (props) => {
         personService
             .Create(newPerson)
             .then(response => {
+                console.log('hmm')
                 props.setPersons(props.persons.concat(response.data))
                 props.setWhatToShow(props.persons.concat(response.data))
                 props.setMessage(`Added ${newPerson.name}`)
