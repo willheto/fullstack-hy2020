@@ -1,0 +1,7 @@
+POST https://puhelinluettelohenriw.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "test person2",
+    "number": "123"
+}
