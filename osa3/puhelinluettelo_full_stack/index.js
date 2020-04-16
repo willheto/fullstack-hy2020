@@ -1,8 +1,9 @@
+const Number = require('./models/number')
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const app = express()
 
+const app = express()
 app.use(express.static('build'))
 app.use(cors())
 
@@ -18,31 +19,11 @@ const PORT = process.env.PORT || 3001
 app.listen(PORT)
 console.log(`server running on port ${PORT}`)
 
-let numbers = [
-    {
-        name: "Arto Hellas",
-        number: "040-123456",
-        id: 1
-    },
-    {
-        name: "Ada Lovelace",
-        number: "040-123123123",
-        id: 2
-    },
-    {
-        name: "Dan abramov",
-        number: "12-43-234-345",
-        id: 3
-    },
-    {
-        name: "Mary Poppendieck",
-        number: "39-23-6423122",
-        id: 4
-    },
-]
-
 app.get('/api/persons', (request, response) => {
-    response.send(numbers)
+    Number.find({})
+        .then(result => {
+            response.json(result.map(number => number.toJSON()))
+        })
 })
 
 app.put('/api/persons/:id', (request, response) => {
@@ -51,7 +32,7 @@ app.put('/api/persons/:id', (request, response) => {
     const id = request.params.id
     numbers.map(number => number.id !== id ? number : newPerson)
     response.status(200).json(newPerson)
-    
+
 })
 
 app.delete('/api/persons/:id', (request, response) => {
@@ -66,46 +47,25 @@ app.delete('/api/persons/:id', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
 
-    const newObject = request.body
+    const newObject = new Number({
+        name: request.body.name,
+        number: request.body.number
+    })
 
-    if (newObject) {
-
-
-        if (newObject.name && newObject.number) {
-            for (let index = 0; index < numbers.length; index++) {
-                if (numbers[index].name === newObject.name) {
-                    response.status(400).json({ error: 'name must be unique' })
-                    return
-                }
-            }
-
-            const id = Math.floor(Math.random() * Math.floor(10000))
-            newObject.id = id
-
-            numbers = numbers.concat(newObject)
-            console.log(`success, added ${newObject.name}`)
-            response.status(200).json(newObject)
-        } else {
-            response.status(400).json({ error: 'a name AND a number must be given' })
-        }
-
-
-
-    }
+    newObject.save()
+    .then(result => {
+        console.log('New number saved to database!')
+        response.json(result.toJSON())
+    })
 
 })
 
 app.get('/api/persons/:id', (request, response) => {
 
-    const id = Number(request.params.id)
-    console.log(id)
-    const presentedNumber = numbers.find(number => number.id === id)
-
-    if (presentedNumber) {
-        console.log(presentedNumber)
-        response.json(presentedNumber)
-    } response.status(404).end()
-
+    Number.findById(request.params.id)
+        .then(result => {
+            response.json(result.toJSON())
+        })
 })
 
 app.get('/info', (request, response) => {
