@@ -26,22 +26,28 @@ app.get('/api/persons', (request, response) => {
         })
 })
 
-app.put('/api/persons/:id', (request, response) => {
-    console.log(request.body)
-    const newPerson = request.body
-    const id = request.params.id
-    numbers.map(number => number.id !== id ? number : newPerson)
-    response.status(200).json(newPerson)
+app.get('/api/persons/:id', (request, response, next) => {
 
+    Number.findById(request.params.id)
+        .then(number => {
+            if (number) {
+                response.json(number.toJSON())
+            } else {
+                console.log(error)
+                response.status(404).end()
+            }
+        })
+        .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (request, response) => {
 
-    const id = Number(request.params.id)
-    console.log(id)
-    numbers = numbers.filter(number => number.id !== id)
-
-    response.status(204).end()
+    Number.findByIdAndRemove(request.params.id)
+        .then(result => {
+            console.log('removed')
+            response.status(204).end()
+        })
+        .catch(error => next(error))
 
 })
 
@@ -53,28 +59,50 @@ app.post('/api/persons', (request, response) => {
     })
 
     newObject.save()
-    .then(result => {
-        console.log('New number saved to database!')
-        response.json(result.toJSON())
-    })
+        .then(result => {
+            console.log('New number saved to database!')
+            response.json(result.toJSON())
+        })
 
 })
 
-app.get('/api/persons/:id', (request, response) => {
+app.put('/api/persons/:id', (request, response) => {
+    const updatedPerson = {
+        name: request.body.name,
+        number: request.body.number
+    }
 
-    Number.findById(request.params.id)
+    Number.findByIdAndUpdate(request.params.id, updatedPerson, { new: true })
         .then(result => {
             response.json(result.toJSON())
         })
+        .catch(error => next(error))
+
+})
+
+const errorHandler = (error, request, response, next) => {
+    console.log(error.message)
+
+    if (error.name === 'CastError') {
+        return response.status(400).send({ error: 'malformatted id' })
+    }
+
+    next(error)
+}
+
+app.use(errorHandler)
+
+app.get('/', (request, response) => {
+    response.send('')
 })
 
 app.get('/info', (request, response) => {
     const date = new Date()
-    response.send(`<div><p>Phonebook has info for ${numbers.length} people</p>
-        <p>${date}</p></div>`)
-})
+    const howMany = Number.countDocuments()
 
-app.get('/', (request, response) => {
-    response.send('')
+    Number.countDocuments({}, function (err, count) {
+        response.send(`<div><p>Phonebook has info for ${count} people</p><p>${date}</p></div>`)
+    })
+
 })
 

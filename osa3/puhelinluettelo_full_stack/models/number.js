@@ -1,6 +1,8 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 
+mongoose.set('useFindAndModify', false)
+
 const loading = ['/', '-', '\\', '|', '/', '-', '\\', '|']
 let index = 0;
 
@@ -9,7 +11,7 @@ const url = process.env.MONGODB_URI
 const spinLoading = setInterval(() => {
     process.stdout.clearLine()
     process.stdout.cursorTo(0)
-    process.stdout.write(loading[index] + ' connecting to server, please wait')
+    process.stdout.write(loading[index] + ' connecting to MongoDB, please wait')
     index++
     if (index == 7) {
         index = 0
