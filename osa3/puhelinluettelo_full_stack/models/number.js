@@ -1,7 +1,9 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 
 mongoose.set('useFindAndModify', false)
+mongoose.set('useCreateIndex', true)
 
 const loading = ['/', '-', '\\', '|', '/', '-', '\\', '|']
 let index = 0;
@@ -29,10 +31,17 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     })
 
 const numberSchema = new mongoose.Schema({
-    name: String,
-    number: String
+    name: {
+        type: String,
+        minlength: 3,
+        unique: true
+    },
+    number: {
+        type: String,
+        minlength: 8
+    } 
 })
-
+numberSchema.plugin(uniqueValidator)
 numberSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
@@ -42,16 +51,5 @@ numberSchema.set('toJSON', {
 })
 
 const Number = mongoose.model('Number', numberSchema)
-
-/*const newNumber = new Number({
-    name: 'Ada Lovelace',
-    number: '123123123'
-})
-
-newNumber.save()
-    .then(result => {
-        console.log('test saved successfully')
-    })
-*/
 
 module.exports = mongoose.model('Number', numberSchema)
