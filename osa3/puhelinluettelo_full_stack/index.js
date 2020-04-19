@@ -33,14 +33,13 @@ app.get('/api/persons/:id', (request, response, next) => {
             if (number) {
                 response.json(number.toJSON())
             } else {
-                console.log(error)
                 response.status(404).end()
             }
         })
         .catch(error => next(error))
 })
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
 
     Number.findByIdAndRemove(request.params.id)
         .then(result => {
@@ -67,7 +66,7 @@ app.post('/api/persons', (request, response, next) => {
 
 })
 
-app.put('/api/persons/:id', (request, response) => {
+app.put('/api/persons/:id', (request, response, next) => {
     const updatedPerson = {
         name: request.body.name,
         number: request.body.number
@@ -102,7 +101,6 @@ app.get('/', (request, response) => {
 
 app.get('/info', (request, response) => {
     const date = new Date()
-    const howMany = Number.countDocuments()
 
     Number.countDocuments({}, function (err, count) {
         response.send(`<div><p>Phonebook has info for ${count} people</p><p>${date}</p></div>`)

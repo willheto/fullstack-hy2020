@@ -1,21 +1,22 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
+const readline = require('readline')
 
 mongoose.set('useFindAndModify', false)
 mongoose.set('useCreateIndex', true)
 
 const loading = ['/', '-', '\\', '|', '/', '-', '\\', '|']
-let index = 0;
+let index = 0
 
 const url = process.env.MONGODB_URI
 
 const spinLoading = setInterval(() => {
-    process.stdout.clearLine()
-    process.stdout.cursorTo(0)
+    //process.stdout.clearLine()
+    readline.cursorTo(process.stdout, 0)
     process.stdout.write(loading[index] + ' connecting to MongoDB, please wait')
     index++
-    if (index == 7) {
+    if (index === 7) {
         index = 0
     }
 }, 250)
@@ -49,7 +50,5 @@ numberSchema.set('toJSON', {
         delete returnedObject.__v
     }
 })
-
-const Number = mongoose.model('Number', numberSchema)
 
 module.exports = mongoose.model('Number', numberSchema)
