@@ -37,7 +37,6 @@ router.put('/:id', async (request, response) => {
 })
 
 router.post('/', async (request, response) => {
-  console.log(request)
   const blog = new Blog(request.body)
 
   const decodedToken = jwt.verify(request.token, process.env.SECRET)
