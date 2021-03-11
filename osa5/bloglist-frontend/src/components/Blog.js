@@ -1,9 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
+import './Blog.css'
+import blogService from '../services/blogs'
 
-const Blog = ({blog}) => (
-  <div>
-    {blog.title} {blog.author}
-  </div>  
-)
+const Blog = ({ blog, setBlogs }) => {
+
+  const [moreVisible, setMoreVisible] = useState(false)
+
+  const handleLike = async (blog) => {
+    await blogService.editBlog(blog)
+    const updatedBlogs = await blogService.getAll()
+    setBlogs(updatedBlogs)
+  }
+
+  const handleRemove = async (blog) => {
+    await blogService.removeBlog(blog)
+    const updatedBlogs = await blogService.getAll()
+    setBlogs(updatedBlogs)
+  }
+
+  const allVisible = () => (
+    <div className="Blog">
+      <p>{blog.title} {blog.author} <button onClick={() => setMoreVisible(false)}>hide</button></p>
+      <p>{blog.url}</p>
+      <p>likes: {blog.likes} <button onClick={() => handleLike(blog)}>like</button></p>
+      <button onClick={() => handleRemove(blog)}>remove blog</button>
+    </div>
+  )
+
+  const hidden = () => (
+    <div className="Blog">
+      {blog.title} {blog.author}
+      <button onClick={() => setMoreVisible(true)}>show more...</button>
+    </div>
+  )
+
+  return (
+    <div>
+      { moreVisible ?
+        allVisible()
+        : hidden()
+      }
+    </div>
+
+  )
+}
 
 export default Blog
