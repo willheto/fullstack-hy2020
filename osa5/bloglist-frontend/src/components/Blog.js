@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import './Blog.css'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog, setBlogs }) => {
+const Blog = ({ blog, setBlogs, user }) => {
 
   const [moreVisible, setMoreVisible] = useState(false)
+  const removeVisible = { display: !(user.username === blog.user.username) ? 'none' : '' }
 
   const handleLike = async (blog) => {
     await blogService.editBlog(blog)
@@ -23,7 +24,9 @@ const Blog = ({ blog, setBlogs }) => {
       <p>{blog.title} {blog.author} <button onClick={() => setMoreVisible(false)}>hide</button></p>
       <p>{blog.url}</p>
       <p>likes: {blog.likes} <button onClick={() => handleLike(blog)}>like</button></p>
-      <button onClick={() => handleRemove(blog)}>remove blog</button>
+      <div style={removeVisible}>
+        <button onClick={() => handleRemove(blog)}>remove blog</button>
+      </div>
     </div>
   )
 

@@ -27,8 +27,8 @@ const BlogsForm = (props) => {
             <Togglable buttonLabel="create new blog" ref={blogFormRef}>
                 <CreateNewBlog setCreateBlogVisible={setCreateBlogVisible} createBlogVisible={createBlogVisible} blogs={blogs} setBlogs={setBlogs} setNotification={props.setNotification}></CreateNewBlog>
             </Togglable>
-            {blogs.sort(function (a, b) {return b.likes - a.likes}).map(blog =>
-                <Blog key={blog.id} blog={blog} setBlogs={setBlogs}/>
+            {blogs.sort(function (a, b) { return b.likes - a.likes }).map(blog =>
+                <Blog key={blog.id} blog={blog} setBlogs={setBlogs} user={props.user} />
             )}
         </div>
     )
