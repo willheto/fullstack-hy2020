@@ -31,14 +31,14 @@ const App = () => {
 
       setTimeout(() => {
         setNotification('')
-      }, 3000);
+      }, 3000)
     } catch {
-      console.error('login failed!');
+      console.error('login failed!')
       setNotification('wrong username or password')
 
       setTimeout(() => {
         setNotification('')
-      }, 3000);
+      }, 3000)
     }
   }
 
@@ -50,7 +50,7 @@ const App = () => {
 
     setTimeout(() => {
       setNotification('')
-    }, 3000);
+    }, 3000)
   }
 
   const loginForm = () => (
