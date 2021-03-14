@@ -2,16 +2,10 @@ import React, { useState } from 'react'
 import './Blog.css'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog, setBlogs, user }) => {
+const Blog = ({ blog, setBlogs, user, handleLike }) => {
 
   const [moreVisible, setMoreVisible] = useState(false)
   const removeVisible = { display: !(user.username === blog.user.username) ? 'none' : '' }
-
-  const handleLike = async (blog) => {
-    await blogService.editBlog(blog)
-    const updatedBlogs = await blogService.getAll()
-    setBlogs(updatedBlogs)
-  }
 
   const handleRemove = async (blog) => {
     await blogService.removeBlog(blog)
@@ -23,9 +17,9 @@ const Blog = ({ blog, setBlogs, user }) => {
     <div className="Blog">
       <p>{blog.title} {blog.author} <button onClick={() => setMoreVisible(false)}>hide</button></p>
       <p>{blog.url}</p>
-      <p>likes: {blog.likes} <button onClick={() => handleLike(blog)}>like</button></p>
+      <p>likes: {blog.likes} <button id='like-button' onClick={() => handleLike(blog)}>like</button></p>
       <div style={removeVisible}>
-        <button onClick={() => handleRemove(blog)}>remove blog</button>
+        <button id='remove-button' onClick={() => handleRemove(blog)}>remove blog</button>
       </div>
     </div>
   )
@@ -33,7 +27,7 @@ const Blog = ({ blog, setBlogs, user }) => {
   const hidden = () => (
     <div className="Blog">
       {blog.title} {blog.author}
-      <button onClick={() => setMoreVisible(true)}>show more...</button>
+      <button id='show-button' onClick={() => setMoreVisible(true)}>show more...</button>
     </div>
   )
 

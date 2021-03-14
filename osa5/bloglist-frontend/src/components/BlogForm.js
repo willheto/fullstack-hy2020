@@ -18,6 +18,12 @@ const BlogsForm = (props) => {
     )
   }, [])
 
+  const handleLike = async (blog) => {
+    await blogService.editBlog(blog)
+    const updatedBlogs = await blogService.getAll()
+    setBlogs(updatedBlogs)
+  }
+
   return (
     <div>
       <h2>blogs</h2>
@@ -28,7 +34,7 @@ const BlogsForm = (props) => {
         <CreateNewBlog setCreateBlogVisible={setCreateBlogVisible} createBlogVisible={createBlogVisible} blogs={blogs} setBlogs={setBlogs} setNotification={props.setNotification}></CreateNewBlog>
       </Togglable>
       {blogs.sort(function (a, b) { return b.likes - a.likes }).map(blog =>
-        <Blog key={blog.id} blog={blog} setBlogs={setBlogs} user={props.user} />
+        <Blog handleLike={handleLike} key={blog.id} blog={blog} setBlogs={setBlogs} user={props.user} />
       )}
     </div>
   )

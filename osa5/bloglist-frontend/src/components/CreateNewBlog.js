@@ -34,16 +34,16 @@ const CreateNewBlog = (props) => {
         <h2>create new blog</h2>
         <form onSubmit={handleNewBlog}>
           <div>
-                        title: <input type="title" onChange={({ target }) => setTitle(target.value)}></input>
+                        title: <input id='title' type="title" onChange={({ target }) => setTitle(target.value)}></input>
           </div>
           <div>
-                        author: <input type="author" onChange={({ target }) => setAuthor(target.value)}></input>
+                        author: <input id='author' type="author" onChange={({ target }) => setAuthor(target.value)}></input>
           </div>
           <div>
-                        url: <input type="url" onChange={({ target }) => setUrl(target.value)}></input>
+                        url: <input id='url' type="url" onChange={({ target }) => setUrl(target.value)}></input>
           </div>
           <div>
-            <button type="submit">create</button>
+            <button id='submit-button' type="submit">create</button>
           </div>
         </form>
       </div>
